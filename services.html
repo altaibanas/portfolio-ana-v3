@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدماتي | مطور الواجهات الأمامية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4A44C6;
+            --accent: #FF6B8B;
+            --dark: #0F0F1B;
+            --light: #F8F9FA;
+            --neon: #00F5FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* font-family: 'Tajawal', sans-serif; */
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1b 70%);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(255, 107, 139, 0.1) 100%),
+                        url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 27, 0.9);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 15, 27, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6C63FF, #4A44C6, #FF6B8B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-text {
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon), 0 0 30px var(--neon);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0) scale(1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(108, 99, 255, 0.3);
+        }
+        
+        .floating {
+            animation: floating 8s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(108, 99, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
+        }
+        
+        .nav-active {
+            color: var(--accent);
+            position: relative;
+        }
+        
+        .nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.3);
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-1000%) translateX(1000%) rotate(360deg); opacity: 0; }
+        }
+        
+        .service-step {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .service-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 40px;
+            height: 40px;
+            background: #6C63FF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+        
+        @media (min-width: 768px) {
+            .service-step::after {
+                content: '';
+                position: absolute;
+                top: 10px;
+                right: -20px;
+                width: 40px;
+                height: 2px;
+                background: #6C63FF;
+            }
+            
+            .service-step:last-child::after {
+                display: none;
+            }
+        }
+        
+        .holographic {
+            background: linear-gradient(135deg, 
+                rgba(108, 99, 255, 0.1) 0%, 
+                rgba(74, 68, 198, 0.1) 25%, 
+                rgba(255, 107, 139, 0.1) 50%, 
+                rgba(0, 245, 255, 0.1) 75%, 
+                rgba(108, 99, 255, 0.1) 100%);
+            background-size: 400% 400%;
+            animation: holographic 8s ease infinite;
+        }
+        
+        @keyframes holographic {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- جسيمات الخلفية -->
+    <div id="particles" class="fixed inset-0 z-0"></div>
+    
+    <!-- شريط التنقل -->
+    <nav class="glass-dark fixed w-full z-50 py-4 transition-all duration-500">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                    <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                    Dev<span class="neon-text">Pro</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 space-x-reverse">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300 nav-active">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">اتصل بي</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- القائمة المتنقلة -->
+        <div id="mobile-menu" class="md:hidden hidden glass-dark mt-4 py-4 rounded-lg mx-6">
+            <div class="flex flex-col space-y-4 px-4">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700 nav-active">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2">اتصل بي</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- قسم البطل -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 hero-bg">
+        <div class="hero-content container mx-auto px-6 py-20">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h1 class="text-4xl lg:text-5xl font-bold mb-4">خ<span class="gradient-text">دماتي</span></h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">مجموعة متكاملة من خدمات تطوير الواجهات الأمامية لتحقيق أقصى استفادة من وجودك الرقمي</p>
+            </div>
+            
+            <!-- الخدمات الرئيسية -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                <!-- خدمة 1 -->
+                <div class="glass-dark rounded-2xl overflow-hidden card-hover border border-[#6C63FF]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="تطوير مواقع الويب" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" class="w-10 h-10" alt="Web Development"> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 gradient-text">تطوير مواقع الويب</h3>
+                        <p class="text-gray-400 mb-4">تصميم وتطوير مواقع ويب تفاعلية وسريعة الاستجابة باستخدام أحدث التقنيات مثل React و Vue.js و Next.js</p>
+                        <ul class="text-gray-400 space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تصميم متجاوب لجميع الأجهزة
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تحسين محركات البحث (SEO)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تكامل مع أنظمة إدارة المحتوى
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="block w-full bg-gradient-to-r from-[#6C63FF] to-[#4A44C6] hover:from-[#4A44C6] hover:to-[#6C63FF] text-white text-center py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 glow">
+                            اطلب الخدمة
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- خدمة 2 -->
+                <div class="glass-dark rounded-2xl overflow-hidden card-hover border border-[#4A44C6]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80" 
+                             alt="تصميم واجهات المستخدم" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/1995/1995515.png" class="w-10 h-10" alt="UI/UX Design"> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 gradient-text">تصميم واجهات المستخدم</h3>
+                        <p class="text-gray-400 mb-4">إنشاء واجهات مستخدم جذابة وسهلة الاستخدام مع التركيز على تجربة المستخدم وتحسين معدلات التحويل</p>
+                        <ul class="text-gray-400 space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تصميم واجهات مستخدم بديهية
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تحسين تجربة المستخدم (UX)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تصميم نظام تصميم متكامل
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="block w-full bg-gradient-to-r from-[#4A44C6] to-[#3a36a5] hover:from-[#3a36a5] hover:to-[#4A44C6] text-white text-center py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                            اطلب الخدمة
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- خدمة 3 -->
+                <div class="glass-dark rounded-2xl overflow-hidden card-hover border border-[#FF6B8B]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="تحسين الأداء" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/3594/3594297.png" class="w-10 h-10" alt="Performance Optimization"> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 gradient-text">تحسين الأداء</h3>
+                        <p class="text-gray-400 mb-4">تحسين أداء المواقع الإلكترونية لتحقيق أسرع وقت تحميل وأفضل تجربة للمستخدمين وتحسين ترتيب الموقع</p>
+                        <ul class="text-gray-400 space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تحسين سرعة تحميل الموقع
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تحسين Core Web Vitals
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 ml-2"></i>
+                                تحسين تجربة المستخدم على الجوال
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="block w-full bg-gradient-to-r from-[#FF6B8B] to-[#FF8E53] hover:from-[#FF8E53] hover:to-[#FF6B8B] text-white text-center py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                            اطلب الخدمة
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- عملية العمل -->
+            <div class="mb-20">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">كيفية <span class="gradient-text">العمل</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">أتبع منهجية منظمة لضمان تقديم أعلى جودة وتحقيق النتائج المرجوة في الوقت المحدد</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="service-step" data-step="1" data-aos="fade-up" data-aos-delay="100">
+                        <div class="glass-dark rounded-2xl p-6 h-full text-center card-hover">
+                            <div class="w-20 h-20 bg-gradient-to-br from-[#6C63FF] to-[#4A44C6] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/3094/3094843.png" class="w-10 h-10" alt="Research"> -->
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">الاستكشاف والتخطيط</h3>
+                            <p class="text-gray-400">أقوم بفهم متطلباتك وتحليلها بعناية لوضع خطة عمل مفصلة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-step" data-step="2" data-aos="fade-up" data-aos-delay="200">
+                        <div class="glass-dark rounded-2xl p-6 h-full text-center card-hover">
+                            <div class="w-20 h-20 bg-gradient-to-br from-[#4A44C6] to-[#3a36a5] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/1055/1055666.png" class="w-10 h-10" alt="Design"> -->
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">التصميم والتطوير</h3>
+                            <p class="text-gray-400">أبدأ في تصميم وتطوير الحل مع تحديثك دورياً حول التقدم</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-step" data-step="3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="glass-dark rounded-2xl p-6 h-full text-center card-hover">
+                            <div class="w-20 h-20 bg-gradient-to-br from-[#FF6B8B] to-[#FF8E53] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/4260/4260893.png" class="w-10 h-10" alt="Testing"> -->
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">الاختبار والتحسين</h3>
+                            <p class="text-gray-400">أختبر الحل بدقة وأقوم بالتحسينات اللازمة لضمان الجودة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-step" data-step="4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="glass-dark rounded-2xl p-6 h-full text-center card-hover">
+                            <div class="w-20 h-20 bg-gradient-to-br from-[#00F5FF] to-[#00b8c4] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/3067/3067951.png" class="w-10 h-10" alt="Delivery"> -->
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">التسليم والدعم</h3>
+                            <p class="text-gray-400">أسلم المشروع النهائي وأقدم الدعم اللازم بعد التسليم</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الأسئلة الشائعة -->
+            <div class="mb-20">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">الأسئلة <span class="gradient-text">الشائعة</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">إجابات على الأسئلة الأكثر شيوعاً حول خدماتي وعملي</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="glass-dark rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">كم تستغرق مدة تنفيذ المشروع؟</h3>
+                        <p class="text-gray-400">تختلف مدة التنفيذ حسب حجم المشروع وتعقيده. بشكل عام، تتراوح المدة بين أسبوعين لمواقع الويب البسيطة إلى عدة أشهر للمشاريع الكبيرة والمعقدة.</p>
+                    </div>
+                    
+                    <div class="glass-dark rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">هل تقدم خدمات الصيانة بعد التسليم؟</h3>
+                        <p class="text-gray-400">نعم، أقدم حزم صيانة مختلفة حسب احتياجاتك، تشمل التحديثات الأمنية، إصلاح الأخطاء، والتحديثات الدورية لضمان استمرارية عمل الموقع بشكل مثالي.</p>
+                    </div>
+                    
+                    <div class="glass-dark rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">هل يمكنني طلب تعديلات أثناء العمل على المشروع؟</h3>
+                        <p class="text-gray-400">نعم، يمكن طلب التعديلات أثناء العمل على المشروع، وأعمل معك بشكل وثيق لضمان تحقيق رؤيتك. التعديلات البسيطة عادة ما تكون مشمولة، بينما قد تتطلب التعديلات الكبيرة تكاليف إضافية.</p>
+                    </div>
+                    
+                    <div class="glass-dark rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">ما هي طرق الدفع المتاحة؟</h3>
+                        <p class="text-gray-400">أقبل الدفع عبر التحويل البنكي، وبطاقات الائتمان، والدفع عبر PayPal. عادة ما يتم تقسيم الدفع على دفعات مرتبطة بمراحل إنجاز المشروع.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- دعوة للعمل -->
+            <div class="text-center" data-aos="fade-up">
+                <div class="glass-dark rounded-2xl p-12 border border-[#6C63FF] relative overflow-hidden">
+                    <div class="holographic absolute inset-0 opacity-20"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold mb-4">مستعد لبدء <span class="gradient-text">مشروعك</span>؟</h2>
+                        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">لنتحدث عن مشروعك وكيف يمكنني مساعدتك في تحقيقه</p>
+                        <a href="contact.html" class="inline-block bg-gradient-to-r from-[#6C63FF] to-[#4A44C6] hover:from-[#4A44C6] hover:to-[#6C63FF] text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 glow text-lg">
+                            اتصل بي الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- التذييل -->
+    <footer class="py-12 border-t border-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                        <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                        Dev<span class="neon-text">Pro</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">مطور واجهات أمامية محترف</p>
+                </div>
+                
+                <div class="flex space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>© 2023 [اسمك]. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // إنشاء الجسيمات المتحركة
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 100 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const animationDuration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${animationDuration}s`;
+                
+                const animationDelay = Math.random() * 5;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // تفعيل القائمة المتنقلة
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // إغلاق القائمة عند النقر على رابط
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // تهيئة كل شيء عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupMobileMenu();
+            
+            // تهيئة AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        });
+    </script>
+</body>
+</html>

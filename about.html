@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من أنا | مطور الواجهات الأمامية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4A44C6;
+            --accent: #FF6B8B;
+            --dark: #0F0F1B;
+            --light: #F8F9FA;
+            --neon: #00F5FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* font-family: 'Tajawal', sans-serif; */
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1b 70%);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(255, 107, 139, 0.1) 100%),
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 27, 0.9);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 15, 27, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6C63FF, #4A44C6, #FF6B8B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-text {
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon), 0 0 30px var(--neon);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0) scale(1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(108, 99, 255, 0.3);
+        }
+        
+        .floating {
+            animation: floating 8s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(108, 99, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
+        }
+        
+        .nav-active {
+            color: var(--accent);
+            position: relative;
+        }
+        
+        .nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #6C63FF, #4A44C6);
+            position: relative;
+            transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.3);
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-1000%) translateX(1000%) rotate(360deg); opacity: 0; }
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, #6C63FF, #4A44C6, #FF6B8B);
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--dark);
+            border-radius: 14px;
+            z-index: -1;
+        }
+        
+        .image-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .image-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(255, 107, 139, 0.2));
+            z-index: 1;
+        }
+        
+        .image-frame img {
+            transition: transform 0.5s ease;
+        }
+        
+        .image-frame:hover img {
+            transform: scale(1.1);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-right: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #6C63FF;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 30px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: rgba(108, 99, 255, 0.3);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .morph {
+            animation: morph 8s ease-in-out infinite;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- جسيمات الخلفية -->
+    <div id="particles" class="fixed inset-0 z-0"></div>
+    
+    <!-- شريط التنقل -->
+    <nav class="glass-dark fixed w-full z-50 py-4 transition-all duration-500">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                    <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                    Dev<span class="neon-text">Pro</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 space-x-reverse">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300 nav-active">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">اتصل بي</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- القائمة المتنقلة -->
+        <div id="mobile-menu" class="md:hidden hidden glass-dark mt-4 py-4 rounded-lg mx-6">
+            <div class="flex flex-col space-y-4 px-4">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700 nav-active">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2">اتصل بي</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- قسم البطل -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 hero-bg">
+        <div class="hero-content container mx-auto px-6 py-20">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h1 class="text-4xl lg:text-5xl font-bold mb-4">من <span class="gradient-text">أنا</span></h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">تعرف على رحلتي في عالم تطوير الواجهات الأمامية وشغفي بتحويل الأفكار إلى واقع رقمي</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-20">
+                <div class="lg:w-2/5" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="image-frame w-80 h-80 mx-auto lg:mx-0 morph floating">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                                 alt="صورة شخصية" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="absolute -bottom-4 -right-4 bg-gradient-to-r from-[#FF6B8B] to-[#FF8E53] text-white py-3 px-6 rounded-xl shadow-lg z-10 pulse">
+                            <span class="font-bold">5+ سنوات خبرة</span>
+                        </div>
+                        
+                        <div class="absolute -bottom-4 -left-4 glass-dark py-3 px-6 rounded-xl z-10">
+                            <span class="font-medium text-white">+50 مشروع</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-3/5" data-aos="fade-left" data-aos-delay="300">
+                    <div class="glass-dark rounded-2xl p-8 card-hover border border-[#6C63FF]">
+                        <h2 class="text-3xl font-bold mb-6 gradient-text">مرحباً، أنا <span class="text-white">[اسمك]</span></h2>
+                        <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                            أنا مطور واجهات أمامية متخصص في إنشاء <span class="neon-text">تجارب ويب استثنائية</span>. بدأت رحلتي في مجال التطوير منذ أكثر من 5 سنوات، وخلال هذه الفترة عملت على عشرات المشاريع المتنوعة من مواقع الشركات إلى تطبيقات الويب المعقدة.
+                        </p>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            شغفي يكمن في تحويل التصاميم المعقدة إلى واجهات ويب تفاعلية وسلسة، مع التركيز على <span class="neon-text">أداء عالي</span> وتجربة مستخدم متميزة. أؤمن بأن التصميم الجيد ليس مجرد شكلي، بل يجب أن يكون وظيفياً وسهل الاستخدام.
+                        </p>
+                        
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 gradient-text">التخصصات الرئيسية</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="glass px-4 py-2 rounded-full border border-[#6C63FF] text-white">تطوير React</span>
+                                <span class="glass px-4 py-2 rounded-full border border-[#4A44C6] text-white">تصميم واجهات المستخدم</span>
+                                <span class="glass px-4 py-2 rounded-full border border-[#FF6B8B] text-white">تحسين الأداء</span>
+                                <span class="glass px-4 py-2 rounded-full border border-[#00F5FF] text-white">التطوير المتجاوب</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-4 space-x-reverse">
+                            <a href="portfolio.html" class="bg-gradient-to-r from-[#6C63FF] to-[#4A44C6] hover:from-[#4A44C6] hover:to-[#6C63FF] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 glow">
+                                <i class="fas fa-eye ml-2"></i> أعمالي
+                            </a>
+                            <a href="contact.html" class="glass hover:bg-white hover:bg-opacity-10 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 border border-[#6C63FF]">
+                                <i class="fas fa-download ml-2"></i> تحميل السيرة الذاتية
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الخبرات -->
+            <div class="mb-20">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">خبراتي <span class="gradient-text">ومهاراتي</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">مجموعة المهارات والتقنيات التي أتقنها وأعمل على تطويرها باستمرار</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-dark rounded-2xl p-8 card-hover" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-6 gradient-text">المهارات التقنية</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">HTML5 & CSS3</span>
+                                    <span class="text-[#6C63FF] font-bold">95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="95"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">JavaScript</span>
+                                    <span class="text-[#6C63FF] font-bold">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">React.js</span>
+                                    <span class="text-[#6C63FF] font-bold">88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="88"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">Vue.js</span>
+                                    <span class="text-[#6C63FF] font-bold">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-dark rounded-2xl p-8 card-hover" data-aos="fade-left" data-aos-delay="300">
+                        <h3 class="text-2xl font-bold mb-6 gradient-text">المهارات الشخصية</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">التواصل</span>
+                                    <span class="text-[#6C63FF] font-bold">92%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="92"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">العمل الجماعي</span>
+                                    <span class="text-[#6C63FF] font-bold">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">إدارة الوقت</span>
+                                    <span class="text-[#6C63FF] font-bold">88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="88"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-white">حل المشكلات</span>
+                                    <span class="text-[#6C63FF] font-bold">94%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="94"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- إحصائيات -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+                <div class="glass-dark rounded-2xl p-6 text-center card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-bold text-[#6C63FF] mb-2">50+</div>
+                    <div class="text-gray-300">مشروع مكتمل</div>
+                </div>
+                
+                <div class="glass-dark rounded-2xl p-6 text-center card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-bold text-[#4A44C6] mb-2">5+</div>
+                    <div class="text-gray-300">سنوات خبرة</div>
+                </div>
+                
+                <div class="glass-dark rounded-2xl p-6 text-center card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-bold text-[#FF6B8B] mb-2">40+</div>
+                    <div class="text-gray-300">عميل سعيد</div>
+                </div>
+                
+                <div class="glass-dark rounded-2xl p-6 text-center card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-4xl font-bold text-[#00F5FF] mb-2">98%</div>
+                    <div class="text-gray-300">رضا العملاء</div>
+                </div>
+            </div>
+            
+            <!-- قسم الجدول الزمني -->
+            <div>
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">رحلتي <span class="gradient-text">المهنية</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">المسار المهني والتطور الذي مررت به خلال السنوات الماضية</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="space-y-12">
+                        <!-- عنصر 1 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="glass-dark rounded-2xl p-6 card-hover border border-[#6C63FF]">
+                                <h3 class="text-xl font-bold mb-2 gradient-text">مطور واجهات أمامية أول</h3>
+                                <p class="text-[#6C63FF] font-medium mb-2">شركة التقنية المتقدمة</p>
+                                <p class="text-gray-500 mb-4">2021 - الحاضر</p>
+                                <p class="text-gray-300">قيادة فريق تطوير الواجهات الأمامية للمشاريع الكبرى، وتطوير حلول تقنية مبتكرة لتحسين تجربة المستخدم.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- عنصر 2 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="glass-dark rounded-2xl p-6 card-hover border border-[#4A44C6]">
+                                <h3 class="text-xl font-bold mb-2 gradient-text">مطور واجهات أمامية</h3>
+                                <p class="text-[#6C63FF] font-medium mb-2">شركة ويب سوليوشنز</p>
+                                <p class="text-gray-500 mb-4">2019 - 2021</p>
+                                <p class="text-gray-300">تطوير واجهات مستخدم تفاعلية لمواقع الويب والتطبيقات، والعمل على تحسين أداء المواقع وسرعة تحميلها.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- عنصر 3 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="glass-dark rounded-2xl p-6 card-hover border border-[#FF6B8B]">
+                                <h3 class="text-xl font-bold mb-2 gradient-text">مطور ويب مبتدئ</h3>
+                                <p class="text-[#6C63FF] font-medium mb-2">شركة ديجيتال كريتف</p>
+                                <p class="text-gray-500 mb-4">2017 - 2019</p>
+                                <p class="text-gray-300">بداية رحلتي المهنية في تطوير الويب، والتعلم المستقل والعمل على مشاريع صغيرة ومتوسطة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- التذييل -->
+    <footer class="py-12 border-t border-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                        <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                        Dev<span class="neon-text">Pro</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">مطور واجهات أمامية محترف</p>
+                </div>
+                
+                <div class="flex space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>© 2023 [اسمك]. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // إنشاء الجسيمات المتحركة
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 100 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const animationDuration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${animationDuration}s`;
+                
+                const animationDelay = Math.random() * 5;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // تفعيل أشرطة المهارات عند التمرير
+        function activateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = `0%`;
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                bar.style.width = `${width}%`;
+                            }, 300);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(bar);
+            });
+        }
+        
+        // تفعيل القائمة المتنقلة
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // إغلاق القائمة عند النقر على رابط
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // تهيئة كل شيء عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupMobileMenu();
+            
+            // تفعيل أشرطة المهارات بعد تحميل الصفحة بقليل
+            setTimeout(activateSkillBars, 500);
+            
+            // تهيئة AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        });
+    </script>
+</body>
+</html>

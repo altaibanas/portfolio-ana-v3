@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الأعمال | مطور الواجهات الأمامية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4A44C6;
+            --accent: #FF6B8B;
+            --dark: #0F0F1B;
+            --light: #F8F9FA;
+            --neon: #00F5FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* font-family: 'Tajawal', sans-serif; */
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1b 70%);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(255, 107, 139, 0.1) 100%),
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 27, 0.9);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 15, 27, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6C63FF, #4A44C6, #FF6B8B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-text {
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon), 0 0 30px var(--neon);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0) scale(1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(108, 99, 255, 0.3);
+        }
+        
+        .nav-active {
+            color: var(--accent);
+            position: relative;
+        }
+        
+        .nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.3);
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-1000%) translateX(1000%) rotate(360deg); opacity: 0; }
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(90deg, #6C63FF, #4A44C6);
+            color: white;
+        }
+        
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+        
+        .holographic {
+            background: linear-gradient(135deg, 
+                rgba(108, 99, 255, 0.1) 0%, 
+                rgba(74, 68, 198, 0.1) 25%, 
+                rgba(255, 107, 139, 0.1) 50%, 
+                rgba(0, 245, 255, 0.1) 75%, 
+                rgba(108, 99, 255, 0.1) 100%);
+            background-size: 400% 400%;
+            animation: holographic 8s ease infinite;
+        }
+        
+        @keyframes holographic {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- جسيمات الخلفية -->
+    <div id="particles" class="fixed inset-0 z-0"></div>
+    
+    <!-- شريط التنقل -->
+    <nav class="glass-dark fixed w-full z-50 py-4 transition-all duration-500">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                    <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                    Dev<span class="neon-text">Pro</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 space-x-reverse">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300 nav-active">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-all duration-300">اتصل بي</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- القائمة المتنقلة -->
+        <div id="mobile-menu" class="md:hidden hidden glass-dark mt-4 py-4 rounded-lg mx-6">
+            <div class="flex flex-col space-y-4 px-4">
+                <a href="index.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">الرئيسية</a>
+                <a href="about.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">من أنا</a>
+                <a href="services.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">خدماتي</a>
+                <a href="portfolio.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700 nav-active">أعمالي</a>
+                <a href="blog.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2 border-b border-gray-700">المدونة</a>
+                <a href="contact.html" class="text-white hover:text-[#FF6B8B] transition-colors duration-300 py-2">اتصل بي</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- قسم البطل -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 hero-bg">
+        <div class="hero-content container mx-auto px-6 py-20">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h1 class="text-4xl lg:text-5xl font-bold mb-4">معرض <span class="gradient-text">الأعمال</span></h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">مجموعة مختارة من المشاريع التي قمت بتنفيذها، تعكس مهاراتي وخبرتي في تطوير الواجهات الأمامية</p>
+            </div>
+            
+            <!-- التصفية -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+                <button class="filter-btn active glass-dark hover:bg-[#6C63FF] text-white px-5 py-2 rounded-xl transition-all duration-300" data-filter="all">الكل</button>
+                <button class="filter-btn glass-dark hover:bg-[#6C63FF] text-white px-5 py-2 rounded-xl transition-all duration-300" data-filter="web">مواقع ويب</button>
+                <button class="filter-btn glass-dark hover:bg-[#6C63FF] text-white px-5 py-2 rounded-xl transition-all duration-300" data-filter="app">تطبيقات ويب</button>
+                <button class="filter-btn glass-dark hover:bg-[#6C63FF] text-white px-5 py-2 rounded-xl transition-all duration-300" data-filter="ecommerce">تجارة إلكترونية</button>
+                <button class="filter-btn glass-dark hover:bg-[#6C63FF] text-white px-5 py-2 rounded-xl transition-all duration-300" data-filter="ui">تصميم واجهات</button>
+            </div>
+            
+            <!-- المشاريع -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- مشروع 1 -->
+                <div class="portfolio-item web ecommerce glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="منصة تجارة إلكترونية" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">منصة تجارة إلكترونية</h3>
+                        <p class="text-gray-400 mb-4">منصة متكاملة للتجارة الإلكترونية مع نظام دفع آمن وإدارة مخزون متقدمة</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">React</span>
+                            <span class="bg-[#4A44C6] bg-opacity-20 text-[#4A44C6] text-xs px-3 py-1 rounded-full">Node.js</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">MongoDB</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- مشروع 2 -->
+                <div class="portfolio-item app ui glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" 
+                             alt="تطبيق إدارة المهام" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">تطبيق إدارة المهام</h3>
+                        <p class="text-gray-400 mb-4">تطبيق ويب متكامل لإدارة المهام والمشاريع مع ميزات التعاون بين الفرق</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">Vue.js</span>
+                            <span class="bg-[#FF6B8B] bg-opacity-20 text-[#FF6B8B] text-xs px-3 py-1 rounded-full">Firebase</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">Tailwind</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- مشروع 3 -->
+                <div class="portfolio-item web ui glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1715&q=80" 
+                             alt="موقع شركة تقنية" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">موقع شركة تقنية</h3>
+                        <p class="text-gray-400 mb-4">موقع احترافي لشركة تقنية مع عرض الخدمات وفريق العمل ومدونة إخبارية</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">Next.js</span>
+                            <span class="bg-[#4A44C6] bg-opacity-20 text-[#4A44C6] text-xs px-3 py-1 rounded-full">WordPress</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">Tailwind</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- مشروع 4 -->
+                <div class="portfolio-item ecommerce web glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="متجر إلكتروني للموضة" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">متجر إلكتروني للموضة</h3>
+                        <p class="text-gray-400 mb-4">متجر إلكتروني متكامل للملابس والإكسسوارات مع نظام توصيل وتتبع الطلبات</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">React</span>
+                            <span class="bg-[#4A44C6] bg-opacity-20 text-[#4A44C6] text-xs px-3 py-1 rounded-full">Stripe</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">GraphQL</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- مشروع 5 -->
+                <div class="portfolio-item app ui glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="منصة تعليمية" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">منصة تعليمية</h3>
+                        <p class="text-gray-400 mb-4">منصة تعليمية تفاعلية مع نظام إدارة محتوى متكامل وتجربة تعلم شخصية</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">Angular</span>
+                            <span class="bg-[#4A44C6] bg-opacity-20 text-[#4A44C6] text-xs px-3 py-1 rounded-full">MongoDB</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">Socket.io</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- مشروع 6 -->
+                <div class="portfolio-item web ui glass-dark rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="600">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" 
+                             alt="موقع شخصي لفنان" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#6C63FF] hover:bg-[#6C63FF] hover:text-white transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 gradient-text">موقع شخصي لفنان</h3>
+                        <p class="text-gray-400 mb-4">معرض أعمال تفاعلي لفنان مع نظام حجز مواعيد وعرض للمعارض القادمة</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-[#6C63FF] bg-opacity-20 text-[#6C63FF] text-xs px-3 py-1 rounded-full">Gatsby</span>
+                            <span class="bg-[#4A44C6] bg-opacity-20 text-[#4A44C6] text-xs px-3 py-1 rounded-full">Contentful</span>
+                            <span class="bg-[#00F5FF] bg-opacity-20 text-[#00F5FF] text-xs px-3 py-1 rounded-full">Netlify</span>
+                        </div>
+                        <a href="#" class="text-[#6C63FF] font-medium hover:text-[#4A44C6] transition-colors inline-flex items-center">
+                            عرض التفاصيل <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- دعوة للعمل -->
+            <div class="text-center" data-aos="fade-up">
+                <div class="glass-dark rounded-2xl p-12 border border-[#6C63FF] relative overflow-hidden">
+                    <div class="holographic absolute inset-0 opacity-20"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold mb-4">هل لديك <span class="gradient-text">مشروع</span> في ذهنك؟</h2>
+                        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">لنتحدث عن مشروعك وكيف يمكنني مساعدتك في تحقيقه</p>
+                        <a href="contact.html" class="inline-block bg-gradient-to-r from-[#6C63FF] to-[#4A44C6] hover:from-[#4A44C6] hover:to-[#6C63FF] text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 glow text-lg">
+                            دعنا نناقشه
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- التذييل -->
+    <footer class="py-12 border-t border-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold gradient-text flex items-center">
+                        <!-- <img src="https://cdn-icons-png.flaticon.com/512/2721/2721287.png" class="w-8 h-8 mr-2" alt="Logo"> -->
+                        Dev<span class="neon-text">Pro</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">مطور واجهات أمامية محترف</p>
+                </div>
+                
+                <div class="flex space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#6C63FF] transition-colors text-xl">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>© 2023 [اسمك]. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // إنشاء الجسيمات المتحركة
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 100 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const animationDuration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${animationDuration}s`;
+                
+                const animationDelay = Math.random() * 5;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // تفعيل القائمة المتنقلة
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // إغلاق القائمة عند النقر على رابط
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // تصفية المشاريع
+        function setupPortfolioFilter() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // إزالة النشاط من جميع الأزرار
+                    filterBtns.forEach(b => b.classList.remove('active', 'bg-gradient-to-r', 'from-[#6C63FF]', 'to-[#4A44C6]'));
+                    filterBtns.forEach(b => b.classList.add('glass-dark'));
+                    
+                    // إضافة النشاط للزر المحدد
+                    this.classList.add('active', 'bg-gradient-to-r', 'from-[#6C63FF]', 'to-[#4A44C6]');
+                    this.classList.remove('glass-dark');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // تهيئة كل شيء عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupMobileMenu();
+            setupPortfolioFilter();
+            
+            // تهيئة AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        });
+    </script>
+</body>
+</html>
